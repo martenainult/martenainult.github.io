@@ -5,11 +5,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&family=Special+Gothic+Expanded+One&display=swap"
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Wheel Of (mis)fortune</title>
+    <title>Wheel Of (mis)Fortune</title>
 
     <style>
       :root {
@@ -26,25 +26,53 @@
 
       body {
         margin: 0 auto;
-        font-family: 'Special Gothic Expanded One', sans-serif;
+        font-family: 'Sora', sans-serif;
+        font-weight: 100;
         display: flex;
         justify-content: center;
         align-items: center;
         max-width: 600px;
         height: 100vh;
-        background: #0c0d10 url('/src/assets/images/Digit_background_curves.svg') no-repeat center
+        background: #0c0d10 url('src/assets/images/Digit_background_curves.svg') no-repeat center
           center;
         background-size: cover;
         overflow: hidden;
       }
 
       .header-container {
+        padding-top: 10px;
         position: absolute;
-        top: 10px;
+        display: inline-block;
         text-align: center;
+        transition: all 1s ease;
+        transform-origin: center;
+        top: 10px;
         color: #ffffff;
-        font-size: auto;
+        font-weight: 800;
         text-shadow: 0 0 20px #000;
+      }
+
+      .header-container:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 8px var(--digit-blue));
+      }
+
+      .header-container span {
+        font-size: 2.6rem;
+        font-weight: 900;
+        font-family: 'Sora', sans-serif;
+        text-transform: uppercase;
+      }
+      .header-container #title-fortune {
+        font-size: 2.6rem;
+        font-weight: 900;
+      }
+
+      .header-container #title-mis {
+        font-size: 1.6rem;
+        font-weight: 200;
+        transform: rotate(10deg);
+        padding-right: 6px;
       }
 
       .wheel-container {
@@ -75,8 +103,8 @@
           var(--white) 315deg 360deg
         );
         box-shadow:
-          0 0 0 10px var(--digit-yellow) inset,
-          0 0 30px var(--digit-yellow);
+          0 0 0 10px var(--digit-blue) inset,
+          0 0 30px var(--digit-blue);
         z-index: 2;
       }
 
@@ -103,13 +131,13 @@
         left: 50%;
         transform: translate(-50%, -50%);
         background: linear-gradient(145deg, #ffffff, #c5c5c5);
-        border: 2px solid var(--digit-yellow);
+        border: 2px solid var(--digit-blue);
         font-family: 'Special Gothic Expanded One', sans-serif;
         border-radius: 50%;
         width: 100px;
         height: 100px;
         font-size: 1.2rem;
-        color: var(--digit-yellow);
+        color: var(--digit-blue);
         cursor: pointer;
         box-shadow: 0 0px 20px rgba(0, 0, 0, 0.25);
         z-index: 5;
@@ -119,7 +147,7 @@
       }
 
       .spin-button.pressed {
-        background: var(--digit-yellow);
+        background: var(--digit-blue);
         color: white;
         box-shadow: 0 0px 40px rgba(0, 0, 0, 0.3);
       }
@@ -165,9 +193,9 @@
         font-size: 1rem;
         background-color: var(--white);
         color: #222;
-        border: 2px solid var(--digit-yellow);
-        box-shadow: 0 0px 8px var(--digit-yellow);
-        border-color: #c9a067;
+        border: 2px solid var(--digit-blue);
+        box-shadow: 0 0px 8px var(--digit-blue);
+        border-color: var(--digit-blue);
         border-radius: 10px;
         cursor: pointer;
       }
@@ -176,16 +204,23 @@
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
       }
+
+      footer {
+        position: absolute;
+        bottom: 80px;
+        text-align: center;
+      }
     </style>
   </head>
 
   <body>
     <div class="header-container">
-      <h1>
-        WHEEL <br />
-        OF <br />
-        (MIS)FORTUNE
-      </h1>
+      <span id="title-wheel">WHEEL</span> <br />
+      <span id="title-of">OF</span> <br />
+      <div style="display: flex; justify-content: center; align-items: center">
+        <span id="title-mis">(MIS)</span>
+        <span id="title-fortune">FORTUNE</span>
+      </div>
     </div>
 
     <div class="wheel-container">
@@ -208,6 +243,14 @@
       <button id="popup-close">Done ✔️</button>
     </div>
 
+    <footer>
+      <img
+        src="src/assets/images/digit_logo_white.svg"
+        alt="Logo"
+        style="width: 100px; height: auto"
+      />
+    </footer>
+
     <script>
       const wheel = document.getElementById('wheel')
       const popup = document.getElementById('popup')
@@ -219,7 +262,7 @@
         '🪲 Feature not a bug',
         '🧑‍🦯 Blindshot!',
         '🦅 Sniper',
-        '🤝 Persuasion 500',
+        '🤝 Roll for Persuasion',
         '🤠 Yoink!',
         '🥴 Am I drunk?',
         '🧑‍💻 Sudo rights',
@@ -262,7 +305,7 @@
         setTimeout(() => {
           showPopup(spinLabel, spinText)
           spinning = false
-        }, 3000)
+        }, 3200)
       }
 
       function showPopup(label, text) {
