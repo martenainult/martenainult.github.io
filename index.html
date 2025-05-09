@@ -8,8 +8,11 @@
       href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&family=Special+Gothic+Expanded+One&display=swap"
       rel="stylesheet"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Wheel Of (mis)Fortune</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>Wheel Of (mis)fortune</title>
 
     <style>
       :root {
@@ -40,13 +43,13 @@
       }
 
       .header-container {
-        padding-top: 10px;
         position: absolute;
         display: inline-block;
         text-align: center;
         transition: all 1s ease;
         transform-origin: center;
         top: 10px;
+        padding-top: 20px;
         color: #ffffff;
         font-weight: 800;
         text-shadow: 0 0 20px #000;
@@ -76,7 +79,10 @@
       }
 
       .wheel-container {
-        position: relative;
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         overflow: hidden;
         width: 100%;
         max-width: 800px;
@@ -90,7 +96,6 @@
         aspect-ratio: 1 / 1;
         border-radius: 50%;
         overflow: hidden;
-        transform: rotate(22.5deg);
         transition: transform 3s cubic-bezier(0.17, 1.34, 0.59, 1);
         background: conic-gradient(
           var(--light-gray) 0deg 45deg,
@@ -117,8 +122,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        font-size: 3rem;
-        font-weight: bold;
+        font-size: clamp(1.4rem, 12vw, 4rem);
         color: #222;
         white-space: nowrap;
         text-align: left;
@@ -134,9 +138,9 @@
         border: 2px solid var(--digit-blue);
         font-family: 'Special Gothic Expanded One', sans-serif;
         border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        font-size: 1.2rem;
+        aspect-ratio: 1 / 1;
+        width: clamp(70px, 24vw, 140px);
+        font-size: clamp(0.4rem, 5vw, 3rem);
         color: var(--digit-blue);
         cursor: pointer;
         box-shadow: 0 0px 20px rgba(0, 0, 0, 0.25);
@@ -207,7 +211,7 @@
 
       footer {
         position: absolute;
-        bottom: 80px;
+        bottom: 20px;
         text-align: center;
       }
     </style>
@@ -262,7 +266,7 @@
         '🪲 Feature not a bug',
         '🧑‍🦯 Blindshot!',
         '🦅 Sniper',
-        '🤝 Roll for Persuasion',
+        '🤝 Persuasion 500',
         '🤠 Yoink!',
         '🥴 Am I drunk?',
         '🧑‍💻 Sudo rights',
@@ -292,7 +296,7 @@
 
         button.classList.add('pressed')
 
-        randomSliceAddition = Math.floor(Math.random() * labels.length) // 0-7
+        randomSliceAddition = 1 + Math.floor(Math.random() * labels.length * (6 / 7)) // 0-7
         spinResult = (spinResult + randomSliceAddition) % labels.length // 0-7 + 2
         let spinLabel = labels[spinResult] // 0-7
         let spinText = texts[spinResult] // 0-7
@@ -305,7 +309,7 @@
         setTimeout(() => {
           showPopup(spinLabel, spinText)
           spinning = false
-        }, 2900)
+        }, 3000)
       }
 
       function showPopup(label, text) {
